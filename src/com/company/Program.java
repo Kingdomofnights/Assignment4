@@ -4,6 +4,10 @@ import java.awt.*;
 import java.util.Scanner;
 
 public class Program {
+
+    public static int maxValue = 0;
+    public static int minValue = Integer.MAX_VALUE;
+
     public static void main(String [] args){
 
         Scanner input = new Scanner(System.in);
@@ -60,35 +64,49 @@ public class Program {
         System.out.print("How many cards? ");
         int numberOfCards = input.nextInt();
 
-        for (int i = 0; i <= 100000; i++) {
+        for (int i = 0; i < 100000; i++) {
             deck.shuffleDeck();
             Card[] cards = deck.deal(numberOfCards);
 
             for (int j = 0; j < cards.length; j++) {
-                histogram[cards[j].getValue() - 1]++;
+                histogram[cards[j].getCardNumber()]++;
             }
         }
 
-        int counter = 0;
         for (int i = 0; i < histogram.length; i++) {
             if (histogram[i] > 0) {
-                counter++;
+                if (histogram[i] < minValue) {
+                    minValue = histogram[i];
+                }
+
+                if (histogram[i] > maxValue) {
+                    maxValue = histogram[i];
+                }
             }
         }
 
-        int[] finalResults = new int[counter];
+        showHistogramChart(histogram, deck);
+    }
 
-        int index = 0;
-        for (int i = 0; i < histogram.length; i++) {
-            if (histogram[i] > 0) {
-                finalResults[index] = histogram[i];
-                index++;
-            }
-        }
+    private static void showHistogramChart(int[] finalResults, DeckOfCards deck) {
 
         for (int i = 0; i < finalResults.length; i++) {
-            System.out.println(finalResults[i]);
+            if (finalResults[i] > 0) {
+                int numberOfStars = (int) Math.floor(normaize(finalResults[i]) * 19) + 1;
+                System.out.print("Card " + deck.getCard(i) + " [" + deck.getCard(i).getCardNumber() + "]: [" + finalResults[i] + "]: ");
+                PrintStars(numberOfStars);
+                System.out.println("");
+            }
         }
+    }
 
+    private static double normaize(int value) {
+        return (value - (double)minValue) / ((double)maxValue - (double)minValue);
+    }
+
+    private static void PrintStars(int numberOfStars) {
+        for (int i = 0; i < numberOfStars; i++) {
+            System.out.print("*");
+        }
     }
 }

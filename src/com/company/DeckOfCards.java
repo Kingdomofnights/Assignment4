@@ -9,9 +9,11 @@ public class DeckOfCards {
     private Card highCard;
     private int maximumRank;
     private int numberOfSuits;
+    private Random rand;
 
     public DeckOfCards(int maximumRank, int numberOfSuits) {
 
+        this.rand = new Random();
         this.maximumRank = maximumRank;
         this.numberOfSuits = numberOfSuits;
 
@@ -26,7 +28,7 @@ public class DeckOfCards {
 
             for (int j = 1; j <= this.maximumRank; j++) {
 
-                this.cards[index] = new Card(i, j);
+                this.cards[index] = new Card(i, j, index);
 
                 if (index == 0) {
                     this.lowCard = this.cards[index];
@@ -46,7 +48,10 @@ public class DeckOfCards {
 
         for(int i = 0; i < this.cards.length; i++) {
             int location1 = rand.nextInt(this.cards.length);
+            //System.out.println("location1 : " + location1 + ", " + this.cards[location1]);
             int location2 = rand.nextInt(this.cards.length);
+            //System.out.println("location2 : " + location2 + ", " + this.cards[location2]);
+
 
             Card temp =  this.cards[location1];
             this.cards[location1] = this.cards[location2];
@@ -78,6 +83,13 @@ public class DeckOfCards {
 
     public int getDeckSize() {
         return this.cards.length;
+    }
+
+    public Card getCard(int index) {
+        if (index > this.cards.length - 1) {
+            return null;
+        }
+        return this.cards[index];
     }
 
     @Override
