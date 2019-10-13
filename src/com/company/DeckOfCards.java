@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.Random;
 
+/**
+ * The type Deck of cards.
+ */
 public class DeckOfCards {
 
     private Card[] cards;
@@ -11,6 +14,12 @@ public class DeckOfCards {
     private int numberOfSuits;
     private Random rand;
 
+    /**
+     * Instantiates a new Deck of cards.
+     *
+     * @param maximumRank   the maximum rank
+     * @param numberOfSuits the number of suits
+     */
     public DeckOfCards(int maximumRank, int numberOfSuits) {
 
         this.rand = new Random();
@@ -42,16 +51,16 @@ public class DeckOfCards {
         }
     }
 
+    /**
+     * Shuffle deck.
+     */
     public void shuffleDeck() {
 
         Random rand = new Random();
 
         for(int i = 0; i < this.cards.length; i++) {
             int location1 = rand.nextInt(this.cards.length);
-            //System.out.println("location1 : " + location1 + ", " + this.cards[location1]);
             int location2 = rand.nextInt(this.cards.length);
-            //System.out.println("location2 : " + location2 + ", " + this.cards[location2]);
-
 
             Card temp =  this.cards[location1];
             this.cards[location1] = this.cards[location2];
@@ -59,14 +68,30 @@ public class DeckOfCards {
         }
     }
 
+    /**
+     * Gets low card.
+     *
+     * @return the low card
+     */
     public Card getLowCard() {
         return this.lowCard;
     }
 
+    /**
+     * Gets high card.
+     *
+     * @return the high card
+     */
     public Card getHighCard() {
         return this.highCard;
     }
 
+    /**
+     * Deal card [ ].
+     *
+     * @param numberOfCards the number of cards
+     * @return the card [ ]
+     */
     public Card[] deal(int numberOfCards) {
 
         if (numberOfCards > this.cards.length) {
@@ -81,10 +106,21 @@ public class DeckOfCards {
         }
     }
 
+    /**
+     * Gets deck size.
+     *
+     * @return the deck size
+     */
     public int getDeckSize() {
         return this.cards.length;
     }
 
+    /**
+     * Gets card.
+     *
+     * @param index the index
+     * @return the card
+     */
     public Card getCard(int index) {
         if (index > this.cards.length - 1) {
             return null;

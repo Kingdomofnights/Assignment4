@@ -1,13 +1,26 @@
 package com.company;
 
-import java.awt.*;
 import java.util.Scanner;
 
+/**
+ * @Author Wesley Booth, 000731231
+ */
 public class Program {
 
+    /**
+     * The constant maxValue.
+     */
     public static int maxValue = 0;
+    /**
+     * The constant minValue.
+     */
     public static int minValue = Integer.MAX_VALUE;
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String [] args){
 
         Scanner input = new Scanner(System.in);
@@ -44,6 +57,12 @@ public class Program {
         }
     }
 
+    /**
+     * Deal one hand.
+     *
+     * @param deck  the deck
+     * @param input the input
+     */
     public static void dealOneHand(DeckOfCards deck, Scanner input) {
 
         System.out.print("How many cards? ");
@@ -57,6 +76,12 @@ public class Program {
         System.out.println();
     }
 
+    /**
+     * Deal many times.
+     *
+     * @param deck  the deck
+     * @param input the input
+     */
     public static void dealManyTimes(DeckOfCards deck, Scanner input) {
 
         int[] histogram = new int[deck.getDeckSize()];
@@ -92,7 +117,7 @@ public class Program {
 
         for (int i = 0; i < finalResults.length; i++) {
             if (finalResults[i] > 0) {
-                int numberOfStars = (int) Math.floor(normaize(finalResults[i]) * 19) + 1;
+                int numberOfStars = (int) Math.floor(normalize(finalResults[i]) * 19) + 1;
                 System.out.print("Card " + deck.getCard(i) + " [" + deck.getCard(i).getCardNumber() + "]: [" + finalResults[i] + "]: ");
                 PrintStars(numberOfStars);
                 System.out.println("");
@@ -100,7 +125,7 @@ public class Program {
         }
     }
 
-    private static double normaize(int value) {
+    private static double normalize(int value) {
         return (value - (double)minValue) / ((double)maxValue - (double)minValue);
     }
 
